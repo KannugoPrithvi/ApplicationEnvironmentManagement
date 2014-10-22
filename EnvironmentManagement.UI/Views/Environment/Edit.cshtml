@@ -33,9 +33,28 @@
                     @Html.DropDownList("ComponentType", ViewData["ComponentSelectList"] as IEnumerable<SelectListItem>, new { @class = "dropdown-menu" })
                 </div>
             </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2 text-left">Component Order :</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" placeholder="Intended Users" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2 text-left">Component Quantity :</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" placeholder="Intended Users" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2 text-left">Component Name :</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" placeholder="Intended Users" />
+                </div>
+            </div>
+            @Html.ActionLink("Add new row", "Edit", null, new { @class="primary"})
         </form>
     </div>
     <div class="panel-footer">
-
+        <button type="submit" class="btn-success">Submit !</button>
     </div>
 </div>

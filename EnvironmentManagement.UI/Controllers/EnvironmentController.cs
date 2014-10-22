@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EnvironmentManagement.Domain.Abstract;
+using EnvironmentManagement.Domain.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,11 @@ namespace EnvironmentManagement.UI.Controllers
 {
     public class EnvironmentController : Controller
     {
+        IEnvironmentRepository repository = new EnvironmentRepository();
+        //public EnvironmentController(IEnvironmentRepository repo)
+        //{
+        //    repository = repo;
+        //}
         // GET: Environment
         public ActionResult Index()
         {
@@ -18,9 +25,16 @@ namespace EnvironmentManagement.UI.Controllers
             return RedirectToAction("Edit");
         }
         [HttpGet]
-        public ActionResult Edit(int environmentID)
+        public ActionResult Edit(int environmentID = 0)
         {
-            return null;
+            var componentItems = repository.Components;
+            List<SelectListItem> componentSelectListItems = new List<SelectListItem>();
+            foreach (var item in componentItems)
+            {
+                componentSelectListItems.Add(new SelectListItem { Text=item.ComponentName,Value=item.ComponentID.ToString()});
+            }
+            ViewData["ComponentSelectList"] = componentSelectListItems;
+            return View();
         }
         [HttpPost]
         public ActionResult Edit()

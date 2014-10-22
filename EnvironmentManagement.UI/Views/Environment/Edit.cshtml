@@ -1,0 +1,41 @@
+﻿@model EnvironmentManagement.Domain.Entities.Components
+@{
+    ViewBag.Title = "Create/Edit Environment";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Create Environment</h2>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" method="post" action="/Create/Index">
+            <div class="form-group">
+                <label class="control-label col-xs-2">Username :</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" placeholder="Username" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2">Environment :</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" placeholder="Environment" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2 text-left">Intended Users :</label>
+                <div class="col-xs-10">
+                    <input type="text" class="form-control" placeholder="Intended Users" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-2 text-left">Component Type :</label>
+                <div class="col-xs-10">
+                    @Html.DropDownList("ComponentType", ViewData["ComponentSelectList"] as IEnumerable<SelectListItem>, new { @class = "dropdown-menu" })
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel-footer">
+
+    </div>
+</div>

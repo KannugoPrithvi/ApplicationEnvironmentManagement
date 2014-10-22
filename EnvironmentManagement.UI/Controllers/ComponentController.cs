@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace EnvironmentManagement.UI.Controllers
 {
-    public class CreateController : Controller
+    public class ComponentController : Controller
     {
-        // GET: Create
+        // GET: Component
         public ActionResult Index()
         {
             return View();

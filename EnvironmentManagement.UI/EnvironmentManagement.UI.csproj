@@ -112,9 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CreateController.cs" />
-    <Compile Include="Controllers\DeleteController.cs" />
-    <Compile Include="Controllers\EditController.cs" />
+    <Compile Include="Controllers\ComponentController.cs" />
+    <Compile Include="Controllers\EnvironmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
@@ -125,6 +124,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Views\Environment\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -135,10 +135,14 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Create\" />
-    <Folder Include="Views\Delete\" />
-    <Folder Include="Views\Edit\" />
+    <Folder Include="Views\Component\" />
     <Folder Include="Views\Search\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EnvironmentManagement.Domain\EnvironmentManagement.Domain.csproj">
+      <Project>{b28b87ed-7b98-43d4-8517-cf3def30147c}</Project>
+      <Name>EnvironmentManagement.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

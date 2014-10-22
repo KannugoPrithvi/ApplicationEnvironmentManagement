@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace EnvironmentManagement.Domain.Entities
 {
     public class EnvironmentComponents
     {
+        [Key]
         public int EnvironmentComponentID { get; set; }
         public int EnvironmentUserID { get; set; }
         public int ComponentID { get; set; }

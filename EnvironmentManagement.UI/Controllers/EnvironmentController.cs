@@ -11,6 +11,7 @@ namespace EnvironmentManagement.UI.Controllers
     public class EnvironmentController : Controller
     {
         IEnvironmentRepository repository = new EnvironmentRepository();
+        //IEnvironmentRepository repository = null;
         //public EnvironmentController(IEnvironmentRepository repo)
         //{
         //    repository = repo;
@@ -33,7 +34,7 @@ namespace EnvironmentManagement.UI.Controllers
             {
                 componentSelectListItems.Add(new SelectListItem { Text=item.ComponentName,Value=item.ComponentID.ToString()});
             }
-            ViewData["ComponentSelectList"] = componentSelectListItems;
+            ViewBag.ListItems = componentSelectListItems;
             return View();
         }
         [HttpPost]

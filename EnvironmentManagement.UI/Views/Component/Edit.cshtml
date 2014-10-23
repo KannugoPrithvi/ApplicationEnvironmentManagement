@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Edit Environment Components";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 style="color:#092bb2">Configure Each Component</h2>
+    </div>
+    <div class="panel-body">
+        <h4 style="padding:10px 5px 10px 5px;color:#092bb2">Enter Name and Value for each Component Attribute</h4>
+        <table class="col-xs-6">
+            <tr>
+                <th style="padding:5px">Attribute Name</th>
+                <th style="padding:5px">Attribute Value</th>
+            </tr>
+            <tr>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+            </tr>
+            <tr>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+            </tr>
+        </table>
+        <div class="col-xs-12" style="padding:5px">
+            @Html.ActionLink("Add new component attribute", "Edit", null, new { @class = "primary" })
+        </div>
+    </div>
+    <div class="panel-footer">
+        <button type="submit" class="btn-primary btn-lg">Submit !</button>
+    </div>
+</div>
+

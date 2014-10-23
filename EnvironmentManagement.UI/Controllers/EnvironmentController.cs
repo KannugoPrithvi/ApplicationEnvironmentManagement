@@ -10,12 +10,12 @@ namespace EnvironmentManagement.UI.Controllers
 {
     public class EnvironmentController : Controller
     {
-        IEnvironmentRepository repository = new EnvironmentRepository();
-        //IEnvironmentRepository repository = null;
-        //public EnvironmentController(IEnvironmentRepository repo)
-        //{
-        //    repository = repo;
-        //}
+        //IEnvironmentRepository repository = new EnvironmentRepository();
+        IEnvironmentRepository repository = null;
+        public EnvironmentController(IEnvironmentRepository repo)
+        {
+            repository = repo;
+        }
         // GET: Environment
         public ActionResult Index()
         {

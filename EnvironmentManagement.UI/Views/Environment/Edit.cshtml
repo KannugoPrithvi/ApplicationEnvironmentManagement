@@ -51,14 +51,14 @@
                     <th style="padding:5px">Component Name</th>
                 </tr>
                 <tr>
-                    <td style="padding:5px 5px 5px 5px">@Html.DropDownList("ComponentID", ViewBag.ListItems as List<SelectListItem>, new { @class = "form-control"})</td>
-                    <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" placeholder="Component Order" /></td>
-                    <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" placeholder="Component Quantity" /></td>
-                    <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" placeholder="Component Name" /></td>
+                    <td style="padding:5px">@Html.DropDownList("ComponentID", ViewBag.ListItems as List<SelectListItem>, new { @class = "form-control"})</td>
+                    <td style="padding:5px"><input type="text" class="form-control" placeholder="Component Order" /></td>
+                    <td style="padding:5px"><input type="text" class="form-control" placeholder="Component Quantity" /></td>
+                    <td style="padding:5px"><input type="text" class="form-control" placeholder="Component Name" /></td>
                 </tr>
             </table>
             <div class="row col-xs-12">
-                @Html.ActionLink("Add new component", "Edit", null, new { @class = "primary" })
+                <input type="button" id="btnAddComponent" value="Add new component" class="btn-success" />
             </div>
         </form>
     </div>
@@ -66,3 +66,14 @@
         <button type="submit" class="btn-primary btn-lg">Submit !</button>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnAddComponent").click(function (e) {
+        var itemIndex = $("#container tr").length;
+        e.preventDefault();
+        var newItem = $("<tr><td style='padding:5px'><input type='text' id='AttributeName_" + (itemIndex - 1) + "__AttributeName' name='AttributeName[" + (itemIndex - 1) + "].AttributeName' class='form-control' placeholder='Attribute Name' /></td><td style='padding:5px'><input type='text' id='AttributeValue_" + (itemIndex - 1) + "__AttributeValue' name='AttributeValue[" + (itemIndex - 1) + "].AttributeValue' class='form-control' placeholder='Attribute Value'/></td><td style='padding:5px'><input type='checkbox' class='checkbox' /></td><td style='padding:5px'><input type='text' class='form-control' id='Justification_" + (itemIndex - 1) + "__Justification' name='Justification[" + (itemIndex - 1) + "].Justification' placeholder='Justification' /></td></tr>");
+        $("#container").append(newItem);
+    });
+});
+</script>

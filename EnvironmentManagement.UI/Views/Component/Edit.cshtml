@@ -8,50 +8,45 @@
     </div>
     <div class="panel-body">
         <h4 style="padding:10px 5px 10px 5px;color:#092bb2">Enter Name and Value for each Component Attribute</h4>
-        <table class="col-xs-6">
+        <table id="container" class="col-xs-10">
             <tr>
                 <th style="padding:5px">Attribute Name</th>
                 <th style="padding:5px">Attribute Value</th>
+                <th style="padding:5px">In Working Status ?(Check if yes)</th>
+                <th style="padding:5px">Justify if not in working condition</th>
             </tr>
             <tr>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+                <td style="padding:5px"><input type="text" class="form-control" placeholder="Attribute Name" /></td>
+                <td style="padding:5px"><input type="text" class="form-control" placeholder="Attribute Value" /></td>
+                <td style="padding:5px"><input type="checkbox" class="checkbox" /></td>
+                <td style="padding:5px"><input type="text" class="form-control" placeholder="Justification" /></td>
             </tr>
             <tr>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
+                <td style="padding:5px"><input type="text" class="form-control" placeholder="Attribute Name" /></td>
+                <td style="padding:5px"><input type="text" class="form-control" placeholder="Attribute Value" /></td>
+                <td style="padding:5px"><input type="checkbox" class="checkbox" /></td>
+                <td style="padding:5px"><input type="text" class="form-control" placeholder="Justification" /></td>
             </tr>
-            <tr>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-            </tr>
-            <tr>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-                <td style="padding:5px 5px 5px 5px"><input type="text" class="form-control" /></td>
-            </tr>
+       
         </table>
         <div class="col-xs-12" style="padding:5px">
-            @Html.ActionLink("Add new component attribute", "Edit", null, new { @class = "primary" })
+            <input type="button" id="btnAddAttribute" value="Add new component attribute" class="btn-success" />
+            
         </div>
     </div>
     <div class="panel-footer">
         <button type="submit" class="btn-primary btn-lg">Submit !</button>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnAddAttribute").click(function (e) {
+        var itemIndex = $("#container tr").length;
+        e.preventDefault();
+        var newItem = $("<tr><td style='padding:5px'><input type='text' id='AttributeName_" + (itemIndex - 1) + "__AttributeName' name='AttributeName[" + (itemIndex - 1) + "].AttributeName' class='form-control' placeholder='Attribute Name' /></td><td style='padding:5px'><input type='text' id='AttributeValue_" + (itemIndex - 1) + "__AttributeValue' name='AttributeValue[" + (itemIndex - 1) + "].AttributeValue' class='form-control' placeholder='Attribute Value'/></td><td style='padding:5px'><input type='checkbox' class='checkbox' /></td><td style='padding:5px'><input type='text' class='form-control' id='Justification_" + (itemIndex - 1) + "__Justification' name='Justification[" + (itemIndex - 1) + "].Justification' placeholder='Justification' /></td></tr>");
+        $("#container").append(newItem);
+    });
+});
+</script>
 

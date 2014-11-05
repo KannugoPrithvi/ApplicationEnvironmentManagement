@@ -32,9 +32,30 @@ namespace EnvironmentManagement.UI.Controllers
             List<SelectListItem> componentSelectListItems = new List<SelectListItem>();
             foreach (var item in componentItems)
             {
-                componentSelectListItems.Add(new SelectListItem { Text=item.ATTRIBUTEVALUE,Value=item.ATTRIBUTEID.ToString()});
+                componentSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEID.ToString() });
             }
-            ViewBag.ListItems = componentSelectListItems;
+            ViewBag.EnvironmentComponent = componentSelectListItems;
+            var environmentName = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "Environment");
+            List<SelectListItem> environmentNameSelectListItems = new List<SelectListItem>();
+            foreach (var item in environmentName)
+            {
+                environmentNameSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEID.ToString() });
+            }
+            ViewBag.EnvironmentName = environmentNameSelectListItems;
+            var environmentZone = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "ZONE");
+            List<SelectListItem> environmentZoneSelectListItems = new List<SelectListItem>();
+            foreach (var item in environmentZone)
+            {
+                environmentZoneSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
+            }
+            ViewBag.EnvironmentZone = environmentZoneSelectListItems;
+            var workingStatus = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "WorkingStatus");
+            List<SelectListItem> workingStatusListItems = new List<SelectListItem>();
+            foreach (var item in workingStatus)
+            {
+                workingStatusListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEID.ToString() });
+            }
+            ViewBag.WorkingStatus = workingStatusListItems;
             return View();
         }
         [HttpPost]

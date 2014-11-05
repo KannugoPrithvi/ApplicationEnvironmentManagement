@@ -12,24 +12,23 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header text-left">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("UMT Environment Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
-            </div>
+        <div>                           
+                @Html.ActionLink("UMT Environment Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand",style="color:white;font-size:1.5em" })
+             <ul class="nav navbar-nav navbar-right">
+                 <li><a href="#" style="color:white;font-size:1em">Login</a></li>
+                 <li><a href="#" style="color:white;font-size:1em">Register</a></li>
+             </ul>          
+            <form role="search" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" placeholder="Search" class="form-control" />
+                    <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </form>            
         </div>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-heading"></div>
-        <div class="panel-body">
+    <div class="container" id="centeredDiv">
+        <div>
             @RenderBody()
             <hr />
         </div>

@@ -25,3 +25,11 @@ textarea {
     padding: 10px;
     float: left;
 }
+.btn-sharp{
+    border-radius:0;
+}
+#centeredDiv
+{
+    max-width:1000px;
+    margin:auto;
+}

@@ -30,15 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,10 +48,11 @@
     <Compile Include="Abstract\IEnvironmentRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EnvironmentRepository.cs" />
-    <Compile Include="Entities\ComponentAttributes.cs" />
-    <Compile Include="Entities\Components.cs" />
-    <Compile Include="Entities\EnvironmentComponents.cs" />
-    <Compile Include="Entities\EnvironmentUsers.cs" />
+    <Compile Include="Entities\COMPONENTATTRIBUTE.cs" />
+    <Compile Include="Entities\COMPONENTCONNECTION.cs" />
+    <Compile Include="Entities\ENVIRONMENT.cs" />
+    <Compile Include="Entities\ENVIRONMENTATTRIBUTE.cs" />
+    <Compile Include="Entities\ENVIRONMENTCOMPONENT.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

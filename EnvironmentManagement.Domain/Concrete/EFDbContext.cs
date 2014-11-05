@@ -10,9 +10,10 @@ namespace EnvironmentManagement.Domain.Concrete
 {
     public class EFDbContext : DbContext
     {
-        public DbSet<ComponentAttributes> ComponentAttributes { get; set; }
-        public DbSet<Components> Components { get; set; }
-        public DbSet<EnvironmentComponents> EnvironmentComponents { get; set; }
-        public DbSet<EnvironmentUsers> EnvironmentUsers { get; set; }
+        public DbSet<COMPONENTATTRIBUTE> ComponentAttribute { get; set; }
+        public DbSet<COMPONENTCONNECTION> ComponentConnection { get; set; }
+        public DbSet<ENVIRONMENT> Environment { get; set; }
+        public DbSet<ENVIRONMENTATTRIBUTE> EnvironmentAttribute { get; set; }
+        public DbSet<ENVIRONMENTCOMPONENT> EnvironmentComponent { get; set; }
     }
 }

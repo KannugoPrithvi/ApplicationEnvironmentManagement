@@ -28,11 +28,11 @@ namespace EnvironmentManagement.UI.Controllers
         [HttpGet]
         public ActionResult Edit(int environmentID = 0)
         {
-            var componentItems = repository.Components;
+            var componentItems = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "Component");
             List<SelectListItem> componentSelectListItems = new List<SelectListItem>();
             foreach (var item in componentItems)
             {
-                componentSelectListItems.Add(new SelectListItem { Text=item.ComponentName,Value=item.ComponentID.ToString()});
+                componentSelectListItems.Add(new SelectListItem { Text=item.ATTRIBUTEVALUE,Value=item.ATTRIBUTEID.ToString()});
             }
             ViewBag.ListItems = componentSelectListItems;
             return View();

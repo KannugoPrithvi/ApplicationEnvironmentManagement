@@ -9,27 +9,34 @@ namespace EnvironmentManagement.Domain.Abstract
 {
     public interface IEnvironmentRepository
     {
-        //Operations related to Components
-        IEnumerable<Components> Components { get; }
-        void SaveComponent(Components component);
-        Components DeleteComponent(int componentID);
+        //Operations related to ComponentAttribute
+        IEnumerable<COMPONENTATTRIBUTE> ComponentAttributes { get; }
+        void SaveComponentAttribute(COMPONENTATTRIBUTE componentAttribute);
+        COMPONENTATTRIBUTE DeleteComponentAttribute(int componentAttributeID);
 
-        //Operations related to EnvironmentUsers
+        //Operations related to ComponentConnection
 
-        IEnumerable<EnvironmentUsers> EnvironmentUsers { get; }
-        void SaveEnvironmentUser(EnvironmentUsers environmentUser);
-        EnvironmentUsers DeleteEnvironmentUser(int environmentUserID);
+        IEnumerable<COMPONENTCONNECTION> ComponentConnections { get; }
+        void SaveComponentConnection(COMPONENTCONNECTION componentConnection);
+        COMPONENTCONNECTION DeleteComponentConnection(int componentConnectionID);
 
-        //Operations related to EnvironmentComponents
+        //Operations related to Environment
 
-        IEnumerable<EnvironmentComponents> EnvironmentComponents { get; }
-        void SaveEnvironmentComponent(EnvironmentComponents environmentComponents);
-        EnvironmentComponents DeleteEnvironmentComponent(int environmentComponentID);
+        IEnumerable<ENVIRONMENT> Environments { get; }
+        void SaveEnvironment(ENVIRONMENT environment);
+        ENVIRONMENT DeleteEnvironment(int environmentID);
 
-        //Operations related to ComponentAttributes
+        //Operations related to EnvironmentAttribute
 
-        IEnumerable<ComponentAttributes> ComponentAttributes { get; }
-        void SaveComponentAttributes(ComponentAttributes componentAttributes);
-        ComponentAttributes DeleteComponentAttribute(int componentAttributeID);
+        IEnumerable<ENVIRONMENTATTRIBUTE> EnvironmentAttributes { get; }
+        void SaveEnvironmentAttribute(ENVIRONMENTATTRIBUTE environmentAttribute);
+        ENVIRONMENTATTRIBUTE DeleteEnvironmentAttribute(int environmentAttributeID);
+
+
+        //Operations related to EnvironmentComponent
+
+        IEnumerable<ENVIRONMENTCOMPONENT> EnvironmentComponents { get; }
+        void SaveEnvironmentComponent(ENVIRONMENTCOMPONENT environmentComponent);
+        ENVIRONMENTCOMPONENT DeleteEnvironmentComponent(int environmentComponentID);
     }
 }

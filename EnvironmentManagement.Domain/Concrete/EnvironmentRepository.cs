@@ -11,151 +11,190 @@ namespace EnvironmentManagement.Domain.Concrete
 
     public class EnvironmentRepository : IEnvironmentRepository
     {
-        private EFDbContext context = new EFDbContext();
-        //Concrete operations related to Components
-        public IEnumerable<Components> Components
-        {
-            get { return context.Components; }
-        }
-
-        public void SaveComponent(Components component)
-        {
-            if (component.ComponentID == 0)
-            {
-                context.Components.Add(component);
-            }
-            else
-            {
-                Components dbEntry = context.Components.Find(component.ComponentID);
-                if (dbEntry != null)
-                {
-                    dbEntry.ComponentName = component.ComponentName;
-                    dbEntry.ComponentDescription = component.ComponentDescription;
-                }
-            }
-        }
-
-        public Components DeleteComponent(int componentID)
-        {
-            Components dbEntry = context.Components.Find(componentID);
-            if(dbEntry != null)
-            {
-                context.Components.Remove(dbEntry);
-                context.SaveChanges();
-            }
-            return dbEntry;
-        }
-
-        //Concrete operations related to EnvironmentUser
-        public IEnumerable<EnvironmentUsers> EnvironmentUsers
-        {
-            get { return context.EnvironmentUsers; }
-        }
-
-        public void SaveEnvironmentUser(EnvironmentUsers environmentUser)
-        {
-            if (environmentUser.EnvironmentUserID == 0)
-            {
-                context.EnvironmentUsers.Add(environmentUser);
-            }
-            else
-            {
-                EnvironmentUsers dbEntry = context.EnvironmentUsers.Find(environmentUser.EnvironmentUserID);
-                if (dbEntry != null)
-                {
-                    dbEntry.UserName = environmentUser.UserName;
-                    dbEntry.EnvironmentName = environmentUser.EnvironmentName;
-                    dbEntry.EnvironmentDescription = environmentUser.EnvironmentDescription;
-                    dbEntry.IntendedUsers = environmentUser.IntendedUsers;
-                    dbEntry.Justification = environmentUser.Justification;
-                }
-            }
-            context.SaveChanges();
-        }
-
-        public EnvironmentUsers DeleteEnvironmentUser(int environmentUserID)
-        {
-            EnvironmentUsers dbEntry = context.EnvironmentUsers.Find(environmentUserID);
-            if(dbEntry != null)
-            {
-                context.EnvironmentUsers.Remove(dbEntry);
-                context.SaveChanges();
-            }
-            return dbEntry;
-        }
-
-        //Concrete operations related to EnvironmentComponents
-        public IEnumerable<EnvironmentComponents> EnvironmentComponents
-        {
-            get { return context.EnvironmentComponents; }
-        }
-
-        public void SaveEnvironmentComponent(EnvironmentComponents environmentComponents)
-        {
-            if (environmentComponents.EnvironmentComponentID == 0)
-            {
-                context.EnvironmentComponents.Add(environmentComponents);
-            }
-            else
-            {
-                EnvironmentComponents dbEntry = context.EnvironmentComponents.Find(environmentComponents.EnvironmentComponentID);
-                if (dbEntry != null)
-                {
-                    dbEntry.EnvironmentUserID = environmentComponents.EnvironmentUserID;
-                    dbEntry.ComponentID = environmentComponents.ComponentID;
-                    dbEntry.ComponentOrder = environmentComponents.ComponentOrder;
-                    dbEntry.ComponentQuantity = environmentComponents.ComponentQuantity;
-                    dbEntry.Name = environmentComponents.Name;
-                }
-            }
-            context.SaveChanges();
-        }
-
-        public EnvironmentComponents DeleteEnvironmentComponent(int environmentComponentID)
-        {
-            EnvironmentComponents dbEntry = context.EnvironmentComponents.Find(environmentComponentID);
-            if(dbEntry != null)
-            {
-                context.EnvironmentComponents.Remove(dbEntry);
-                context.SaveChanges();
-            }
-            return dbEntry;
-        }
-
+        private EFDbContext context = new EFDbContext();   
+        
 
         //Concrete operations related to ComponentAttributes
-        public IEnumerable<ComponentAttributes> ComponentAttributes
+        public IEnumerable<COMPONENTATTRIBUTE> ComponentAttributes
         {
-            get { return context.ComponentAttributes; }
+            get { return context.ComponentAttribute; }
         }
 
-        public void SaveComponentAttributes(ComponentAttributes componentAttributes)
+        public void SaveComponentAttribute(COMPONENTATTRIBUTE componentAttribute)
         {
-            if (componentAttributes.ComponentAttributeID == 0)
+            if (componentAttribute.COMPONENTATTRIBUTEID == 0)
             {
-                context.ComponentAttributes.Add(componentAttributes);
+                context.ComponentAttribute.Add(componentAttribute);
             }
             else
             {
-                ComponentAttributes dbEntry = context.ComponentAttributes.Find(componentAttributes.ComponentAttributeID);
+                COMPONENTATTRIBUTE dbEntry = context.ComponentAttribute.Find(componentAttribute.COMPONENTATTRIBUTEID);
                 if (dbEntry != null)
                 {
-                    dbEntry.EnvironmentComponentID = componentAttributes.EnvironmentComponentID;
-                    dbEntry.AttributeDescription = componentAttributes.AttributeDescription;
+                    dbEntry.ENVIRONMENTCOMPONENTID = componentAttribute.ENVIRONMENTCOMPONENTID;
+                    dbEntry.ATTRIBUTEKEY = componentAttribute.ATTRIBUTEKEY;
+                    dbEntry.ATTRIBUTEVALUE = componentAttribute.ATTRIBUTEVALUE;
                 }
             }
             context.SaveChanges();
         }
 
-        public ComponentAttributes DeleteComponentAttribute(int componentAttributeID)
+        public COMPONENTATTRIBUTE DeleteComponentAttribute(int componentAttributeID)
         {
-            ComponentAttributes dbEntry = context.ComponentAttributes.Find(componentAttributeID);
-            if(dbEntry != null)
+            COMPONENTATTRIBUTE dbEntry = context.ComponentAttribute.Find(componentAttributeID);
+            if (dbEntry != null)
             {
-                context.ComponentAttributes.Remove(dbEntry);
+                context.ComponentAttribute.Remove(dbEntry);
                 context.SaveChanges();
             }
             return dbEntry;
         }
+
+        //Concrete operations related to ComponentConnection
+        public IEnumerable<COMPONENTCONNECTION> ComponentConnections
+        {
+            get { return context.ComponentConnection; }
+        }
+
+        public void SaveComponentConnection(COMPONENTCONNECTION componentConnection)
+        {
+            if (componentConnection.COMPONENTCONNECTIONID == 0)
+            {
+                context.ComponentConnection.Add(componentConnection);
+            }
+            else
+            {
+                COMPONENTCONNECTION dbEntry = context.ComponentConnection.Find(componentConnection.COMPONENTCONNECTIONID);
+                if (dbEntry != null)
+                {
+                    dbEntry.ENVIRONMENTCOMPONENTID1 = componentConnection.ENVIRONMENTCOMPONENTID1;
+                    dbEntry.ENVIRONMENTCOMPONENTID2 = componentConnection.ENVIRONMENTCOMPONENTID2;
+                }
+            }
+            context.SaveChanges();
+        }
+
+        public COMPONENTCONNECTION DeleteComponentConnection(int componentConnectionID)
+        {
+            COMPONENTCONNECTION dbEntry = context.ComponentConnection.Find(componentConnectionID);
+            if (dbEntry != null)
+            {
+                context.ComponentConnection.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
+        }
+
+        //Concrete operations related to Environment
+        public IEnumerable<ENVIRONMENT> Environments
+        {
+            get { return context.Environment; }
+        }
+
+        public void SaveEnvironment(ENVIRONMENT environment)
+        {
+            if (environment.ENVIRONMENTID == 0)
+            {
+                context.Environment.Add(environment);
+            }
+            else
+            {
+                ENVIRONMENT dbEntry = context.Environment.Find(environment.ENVIRONMENTID);
+                if (dbEntry != null)
+                {
+                    dbEntry.USERNAME = environment.USERNAME;
+                    dbEntry.ENVIRONMENTNAME = environment.ENVIRONMENTNAME;
+                    dbEntry.DESCRIPTION = environment.DESCRIPTION;
+                    dbEntry.INTENDEDUSERS = environment.INTENDEDUSERS;
+                    dbEntry.ENVIRONMENTZONE = environment.ENVIRONMENTZONE;
+                    dbEntry.WORKINGSTATUS = environment.WORKINGSTATUS;
+                    dbEntry.JUSTIFICATION = environment.JUSTIFICATION;
+                }
+            }
+            context.SaveChanges();
+        }
+
+        public ENVIRONMENT DeleteEnvironment(int environmentID)
+        {
+            ENVIRONMENT dbEntry = context.Environment.Find(environmentID);
+            if (dbEntry != null)
+            {
+                context.Environment.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
+        }
+
+        //Concrete operations related to EnvironmentAttribute
+        public IEnumerable<ENVIRONMENTATTRIBUTE> EnvironmentAttributes
+        {
+            get { return context.EnvironmentAttribute; }
+        }
+
+        public void SaveEnvironmentAttribute(ENVIRONMENTATTRIBUTE environmentAttribute)
+        {
+            if (environmentAttribute.ATTRIBUTEID == 0)
+            {
+                context.EnvironmentAttribute.Add(environmentAttribute);
+            }
+            else
+            {
+                ENVIRONMENTATTRIBUTE dbEntry = context.EnvironmentAttribute.Find(environmentAttribute.ATTRIBUTEID);
+                if (dbEntry != null)
+                {
+                    dbEntry.ATTRIBUTETYPE = environmentAttribute.ATTRIBUTETYPE;
+                    dbEntry.ATTRIBUTEVALUE = environmentAttribute.ATTRIBUTEVALUE;
+                    dbEntry.ATTRIBUTEDESCRIPTION = environmentAttribute.ATTRIBUTEDESCRIPTION;
+                }
+            }
+            context.SaveChanges();
+        }
+
+        public ENVIRONMENTATTRIBUTE DeleteEnvironmentAttribute(int environmentAttributeID)
+        {
+            ENVIRONMENTATTRIBUTE dbEntry = context.EnvironmentAttribute.Find(environmentAttributeID);
+            if (dbEntry != null)
+            {
+                context.EnvironmentAttribute.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
+        }
+
+        //Concrete operations related to EnvironmentComponent
+        public IEnumerable<ENVIRONMENTCOMPONENT> EnvironmentComponents
+        {
+            get { return context.EnvironmentComponent; }
+        }
+
+        public void SaveEnvironmentComponent(ENVIRONMENTCOMPONENT environmentComponent)
+        {
+            if (environmentComponent.ENVIRONMENTCOMPONENTID == 0)
+            {
+                context.EnvironmentComponent.Add(environmentComponent);
+            }
+            else
+            {
+                ENVIRONMENTCOMPONENT dbEntry = context.EnvironmentComponent.Find(environmentComponent.ENVIRONMENTCOMPONENTID);
+                if(dbEntry != null)
+                {
+                    dbEntry.ENVIRONMENTID = environmentComponent.ENVIRONMENTID;
+                    dbEntry.ENVIRONMENTATTRIBUTEID = environmentComponent.ENVIRONMENTATTRIBUTEID;
+                    dbEntry.COMPONENTNAME = environmentComponent.COMPONENTNAME;
+                }
+            }
+            context.SaveChanges();
+        }
+
+        public ENVIRONMENTCOMPONENT DeleteEnvironmentComponent(int environmentComponentID)
+        {
+            ENVIRONMENTCOMPONENT dbEntry = context.EnvironmentComponent.Find(environmentComponentID);
+            if(dbEntry != null)
+            {
+                context.EnvironmentComponent.Remove(dbEntry);
+                context.SaveChanges();
+            }
+            return dbEntry;
+        }        
     }
 }

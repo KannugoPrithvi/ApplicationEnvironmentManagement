@@ -38,6 +38,8 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,18 +48,61 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IEnvironmentRepository.cs" />
-    <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EnvironmentRepository.cs" />
-    <Compile Include="Entities\COMPONENTATTRIBUTE.cs" />
-    <Compile Include="Entities\COMPONENTCONNECTION.cs" />
-    <Compile Include="Entities\ENVIRONMENT.cs" />
-    <Compile Include="Entities\ENVIRONMENTATTRIBUTE.cs" />
-    <Compile Include="Entities\ENVIRONMENTCOMPONENT.cs" />
+    <Compile Include="Entities\COMPONENTATTRIBUTE.cs">
+      <DependentUpon>EFDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\COMPONENTCONNECTION.cs">
+      <DependentUpon>EFDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\EFDbContext.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDbContext.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\EFDbContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\EFDbContext.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDbContext.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ENVIRONMENT.cs">
+      <DependentUpon>EFDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ENVIRONMENTATTRIBUTE.cs">
+      <DependentUpon>EFDbContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ENVIRONMENTCOMPONENT.cs">
+      <DependentUpon>EFDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="Entities\EFDbContext.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EFDbContext.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Entities\EFDbContext.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDbContext.edmx</DependentUpon>
+      <LastGenOutput>EFDbContext.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Entities\EFDbContext.edmx.diagram">
+      <DependentUpon>EFDbContext.edmx</DependentUpon>
+    </None>
+    <None Include="Entities\EFDbContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EFDbContext.edmx</DependentUpon>
+      <LastGenOutput>EFDbContext.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

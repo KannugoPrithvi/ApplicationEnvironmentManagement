@@ -1,0 +1,23 @@
+﻿@model IEnumerable<string>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 style="color:#092bb2">General Admin Tasks</h2>
+    </div>
+    <div class="panel-body">
+        <h4 style="padding:10px 5px 10px 5px;color:#092bb2">Choose the type from below to Create/Edit/Delete</h4>
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>@Html.ActionLink(item.ToString(), "Detail", new { AttributeType = item.ToString() }, new { style = "font-size:1.35em" })</li>
+            }
+        </ul>
+    </div>
+    <div class="panel-footer">
+
+    </div>
+</div>

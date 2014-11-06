@@ -1,0 +1,36 @@
+﻿@model List<EnvironmentManagement.Domain.Entities.ENVIRONMENTATTRIBUTE>
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 style="color:#092bb2">CRUD Operations - Environment Attribute</h2>
+    </div>
+    <div class="panel-body">
+        @Html.ActionLink("Create new", "Create", new { AttributeType = @ViewBag.AttributeType })
+        <table class="table table-striped table-condensed table-bordered">
+            <tr>
+                <th>AttributeType</th>
+                <th>AttributeValue</th>
+                <th>AttributeDescription</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.TextBox("ATTRIBUTETYPE", item.ATTRIBUTETYPE, new { @class = "form-control", disabled = "disabled" })</td>
+                    <td>@Html.TextBox("ATTRIBUTEVALUE", item.ATTRIBUTEVALUE, new { @class = "form-control", disabled = "disabled" })</td>
+                    <td>@Html.TextBox("ATTRIBUTEDESCRIPTION", item.ATTRIBUTEDESCRIPTION, new { @class = "form-control", disabled = "disabled" })</td>
+                    <td>@Html.ActionLink("Edit", "Edit", new { ATTRIBUTEID = item.ATTRIBUTEID }) @Html.ActionLink("Delete", "Delete", new { ATTRIBUTEID = item.ATTRIBUTEID })</td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div class="panel-footer">
+
+    </div>
+</div>

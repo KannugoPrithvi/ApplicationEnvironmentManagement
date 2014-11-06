@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnvironmentManagement.Domain.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,12 @@ namespace EnvironmentManagement.UI.Controllers
 {
     public class ComponentController : Controller
     {
+        private IEnvironmentRepository repository;
+
+        public ComponentController(IEnvironmentRepository repo)
+        {
+            repository = repo;
+        }
         // GET: Component
         public ActionResult Index()
         {
@@ -22,7 +29,7 @@ namespace EnvironmentManagement.UI.Controllers
 
         //Edit Get
         [HttpGet]
-        public ActionResult Edit(int componentID=0)
+        public ActionResult Edit(int componentID = 0)
         {
             return View("Edit");
         }
@@ -34,6 +41,17 @@ namespace EnvironmentManagement.UI.Controllers
             return View("Edit");
         }
 
+        public PartialViewResult NewComponentAttributeRow()
+        {
+            var componentAttribute = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "ComponentAttribute");
+            List<SelectListItem> componentAttributeList = new List<SelectListItem>();
+            foreach (var item in componentAttribute)
+            {
+                componentAttributeList.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE });
+            }
+            ViewBag.componentDropDownList = componentAttributeList;
+            return PartialView("Partial/_ComponentAttributeRowInsert");
+        }
         //Details Get
         public ActionResult Details(int componentID)
         {

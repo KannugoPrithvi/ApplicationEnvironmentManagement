@@ -8,39 +8,33 @@
     </div>
     <div class="panel-body">
         <h4 style="padding:10px 5px 10px 5px;color:#092bb2">Enter Name and Value for each Component Attribute</h4>
-        <table id="container" class="col-xs-8">
+        <table id="componentAttributeTable" class="col-xs-8">
             <tr>
                 <th style="padding:5px">Attribute Name</th>
                 <th style="padding:5px">Attribute Value</th>
             </tr>
-            <tr>
-                <td style="padding:5px"><input type="text" class="form-control" placeholder="Attribute Name" /></td>
-                <td style="padding:5px"><input type="text" class="form-control" placeholder="Attribute Value" /></td>                
-            </tr>
-            <tr>
-                <td style="padding:5px"><input type="text" class="form-control" placeholder="Attribute Name" /></td>
-                <td style="padding:5px"><input type="text" class="form-control" placeholder="Attribute Value" /></td>             
-            </tr>
-       
+            @Html.Action("NewComponentAttributeRow")
+
+
         </table>
         <div class="col-xs-12" style="padding:5px">
             <input type="button" id="btnAddAttribute" value="Add component attribute" class="btn-success" />
-            
+
         </div>
     </div>
     <div class="panel-footer">
-        <button type="submit" class="btn-primary btn-lg">Submit !</button>
+        <button type="submit" class="btn-primary btn-lg btn-sharp">Submit !</button>
     </div>
 </div>
 
 <script type="text/javascript">
     $(function () {
         $("#btnAddAttribute").click(function (e) {
-        var itemIndex = $("#container tr").length;
-        e.preventDefault();
-        var newItem = $("<tr><td style='padding:5px'><input type='text' id='AttributeName_" + (itemIndex - 1) + "__AttributeName' name='AttributeName[" + (itemIndex - 1) + "].AttributeName' class='form-control' placeholder='Attribute Name' /></td><td style='padding:5px'><input type='text' id='AttributeValue_" + (itemIndex - 1) + "__AttributeValue' name='AttributeValue[" + (itemIndex - 1) + "].AttributeValue' class='form-control' placeholder='Attribute Value'/></td></tr>");
-        $("#container").append(newItem);
+            var itemIndex = $("#componentAttributeTable tr").length;
+            e.preventDefault();
+            $.get("@Url.Action("NewComponentAttributeRow")", function (data) {
+                $("#componentAttributeTable").append(data);
+            });            
+        });
     });
-});
 </script>
-

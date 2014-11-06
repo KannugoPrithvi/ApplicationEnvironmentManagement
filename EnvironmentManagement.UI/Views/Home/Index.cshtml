@@ -1,24 +1,20 @@
 ﻿
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3>Home Page</h3>
+        <h2 style="color:#092bb2">General Tasks</h2>
     </div>
     <div class="panel-body">
         <div class="row text-justify">
-            <a href="/Environment/Edit"><div class="Indexlabels"><h3>CREATE</h3><div class="caption">Use this option to create environments</div></div></a>
-            <div class="Indexlabels"><h3>EDIT</h3><div class="caption">Use this option to edit environments</div></div>
-            <div class="Indexlabels"><h3>DELETE</h3><div class="caption">Use this option to delete environments</div></div>
-            <div class="Indexlabels"><h3>SEARCH</h3><div class="caption">Use this option to search for environments</div></div>
-        </div>        
-        <div class="panel">
-            <h4>Steps to create an Environment</h4>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-            <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+            <ul>
+                <li>@Html.ActionLink("Create Environment", "Edit", new { controller = "Environment" }, new { style = "font-size:1.35em;padding-left:15px" })</li>
+                <li>@Html.ActionLink("Edit Environment Components", "Edit", new { controller = "Component" }, new { style = "font-size:1.35em;padding-left:15px" })</li>
+                <li>@Html.ActionLink("Edit Component Attributes (Requires Authentication)", "Edit", new { controller = "Environment" }, new { style = "font-size:1.35em;padding-left:15px" })</li>
+                <li>@Html.ActionLink("Edit Environment Attributes (Requires Authentication)", "Edit", new { controller = "Environment" }, new { style = "font-size:1.35em;padding-left:15px" })</li>
+            </ul>
         </div>
     </div>
-</div>
-<div class="panel-footer">
+    <div class="panel-footer">
 
-</div>
+    </div>
 </div>
 

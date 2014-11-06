@@ -28,11 +28,11 @@
           </Key>
           <Property Name="ENVIRONMENTID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="USERNAME" Type="varchar2" MaxLength="100" Nullable="false" />
-          <Property Name="ENVIRONMENTNAME" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ENVIRONMENTNAME" Type="varchar2" MaxLength="100" Nullable="false" />
           <Property Name="DESCRIPTION" Type="varchar2" MaxLength="500" Nullable="false" />
           <Property Name="INTENDEDUSERS" Type="varchar2" MaxLength="200" Nullable="false" />
-          <Property Name="ENVIRONMENTZONE" Type="number" Precision="38" Scale="0" />
-          <Property Name="WORKINGSTATUS" Type="number" Precision="38" Scale="0" />
+          <Property Name="ENVIRONMENTZONE" Type="varchar2" MaxLength="100" />
+          <Property Name="WORKINGSTATUS" Type="varchar2" MaxLength="100" />
           <Property Name="JUSTIFICATION" Type="varchar2" MaxLength="500" />
         </EntityType>
         <EntityType Name="ENVIRONMENTATTRIBUTES">
@@ -50,7 +50,7 @@
           </Key>
           <Property Name="ENVIRONMENTCOMPONENTID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ENVIRONMENTID" Type="number" Precision="38" Scale="0" />
-          <Property Name="ENVIRONMENTATTRIBUTEID" Type="number" Precision="38" Scale="0" />
+          <Property Name="ENVIRONMENTATTRIBUTEID" Type="varchar2" MaxLength="100" />
           <Property Name="COMPONENTNAME" Type="varchar2" MaxLength="200" />
         </EntityType>
         <Association Name="FK_ENVIRONMENT">
@@ -62,18 +62,6 @@
             </Principal>
             <Dependent Role="ENVIRONMENTCOMPONENTS">
               <PropertyRef Name="ENVIRONMENTID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ENVIRONMENTATTRIBUTE">
-          <End Role="ENVIRONMENTATTRIBUTES" Type="Self.ENVIRONMENTATTRIBUTES" Multiplicity="0..1" />
-          <End Role="ENVIRONMENTCOMPONENTS" Type="Self.ENVIRONMENTCOMPONENTS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ENVIRONMENTATTRIBUTES">
-              <PropertyRef Name="ATTRIBUTEID" />
-            </Principal>
-            <Dependent Role="ENVIRONMENTCOMPONENTS">
-              <PropertyRef Name="ENVIRONMENTATTRIBUTEID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -113,42 +101,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ENVIRONMENTZONE">
-          <End Role="ENVIRONMENTATTRIBUTES" Type="Self.ENVIRONMENTATTRIBUTES" Multiplicity="0..1" />
-          <End Role="ENVIRONMENT" Type="Self.ENVIRONMENT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ENVIRONMENTATTRIBUTES">
-              <PropertyRef Name="ATTRIBUTEID" />
-            </Principal>
-            <Dependent Role="ENVIRONMENT">
-              <PropertyRef Name="ENVIRONMENTZONE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ENVNAME_ATTRIBUTES">
-          <End Role="ENVIRONMENTATTRIBUTES" Type="Self.ENVIRONMENTATTRIBUTES" Multiplicity="1" />
-          <End Role="ENVIRONMENT" Type="Self.ENVIRONMENT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ENVIRONMENTATTRIBUTES">
-              <PropertyRef Name="ATTRIBUTEID" />
-            </Principal>
-            <Dependent Role="ENVIRONMENT">
-              <PropertyRef Name="ENVIRONMENTNAME" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WORKINGSTATUS">
-          <End Role="ENVIRONMENTATTRIBUTES" Type="Self.ENVIRONMENTATTRIBUTES" Multiplicity="0..1" />
-          <End Role="ENVIRONMENT" Type="Self.ENVIRONMENT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ENVIRONMENTATTRIBUTES">
-              <PropertyRef Name="ATTRIBUTEID" />
-            </Principal>
-            <Dependent Role="ENVIRONMENT">
-              <PropertyRef Name="WORKINGSTATUS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="EntitiesStoreContainer">
           <EntitySet Name="COMPONENTATTRIBUTES" EntityType="Self.COMPONENTATTRIBUTES" Schema="PRITHVI" store:Type="Tables" />
           <EntitySet Name="COMPONENTCONNECTIONS" EntityType="Self.COMPONENTCONNECTIONS" Schema="PRITHVI" store:Type="Tables" />
@@ -157,10 +109,6 @@
           <EntitySet Name="ENVIRONMENTCOMPONENTS" EntityType="Self.ENVIRONMENTCOMPONENTS" Schema="PRITHVI" store:Type="Tables" />
           <AssociationSet Name="FK_ENVIRONMENT" Association="Self.FK_ENVIRONMENT">
             <End Role="ENVIRONMENT" EntitySet="ENVIRONMENT" />
-            <End Role="ENVIRONMENTCOMPONENTS" EntitySet="ENVIRONMENTCOMPONENTS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ENVIRONMENTATTRIBUTE" Association="Self.FK_ENVIRONMENTATTRIBUTE">
-            <End Role="ENVIRONMENTATTRIBUTES" EntitySet="ENVIRONMENTATTRIBUTES" />
             <End Role="ENVIRONMENTCOMPONENTS" EntitySet="ENVIRONMENTCOMPONENTS" />
           </AssociationSet>
           <AssociationSet Name="FK_ENVIRONMENTCOMPONENT" Association="Self.FK_ENVIRONMENTCOMPONENT">
@@ -174,18 +122,6 @@
           <AssociationSet Name="FK_ENVIRONMENTCOMPONENTID2" Association="Self.FK_ENVIRONMENTCOMPONENTID2">
             <End Role="ENVIRONMENTCOMPONENTS" EntitySet="ENVIRONMENTCOMPONENTS" />
             <End Role="COMPONENTCONNECTIONS" EntitySet="COMPONENTCONNECTIONS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ENVIRONMENTZONE" Association="Self.FK_ENVIRONMENTZONE">
-            <End Role="ENVIRONMENTATTRIBUTES" EntitySet="ENVIRONMENTATTRIBUTES" />
-            <End Role="ENVIRONMENT" EntitySet="ENVIRONMENT" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ENVNAME_ATTRIBUTES" Association="Self.FK_ENVNAME_ATTRIBUTES">
-            <End Role="ENVIRONMENTATTRIBUTES" EntitySet="ENVIRONMENTATTRIBUTES" />
-            <End Role="ENVIRONMENT" EntitySet="ENVIRONMENT" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WORKINGSTATUS" Association="Self.FK_WORKINGSTATUS">
-            <End Role="ENVIRONMENTATTRIBUTES" EntitySet="ENVIRONMENTATTRIBUTES" />
-            <End Role="ENVIRONMENT" EntitySet="ENVIRONMENT" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -219,16 +155,13 @@
           </Key>
           <Property Name="ENVIRONMENTID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="USERNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ENVIRONMENTNAME" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ENVIRONMENTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="INTENDEDUSERS" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ENVIRONMENTZONE" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="WORKINGSTATUS" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ENVIRONMENTZONE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="WORKINGSTATUS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="JUSTIFICATION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="ENVIRONMENTCOMPONENTS" Relationship="Self.FK_ENVIRONMENT" FromRole="ENVIRONMENT" ToRole="ENVIRONMENTCOMPONENTS" />
-          <NavigationProperty Name="ENVIRONMENTATTRIBUTE" Relationship="Self.FK_ENVIRONMENTZONE" FromRole="ENVIRONMENT" ToRole="ENVIRONMENTATTRIBUTES" />
-          <NavigationProperty Name="ENVIRONMENTATTRIBUTE1" Relationship="Self.FK_ENVNAME_ATTRIBUTES" FromRole="ENVIRONMENT" ToRole="ENVIRONMENTATTRIBUTES" />
-          <NavigationProperty Name="ENVIRONMENTATTRIBUTE2" Relationship="Self.FK_WORKINGSTATUS" FromRole="ENVIRONMENT" ToRole="ENVIRONMENTATTRIBUTES" />
         </EntityType>
         <EntityType Name="ENVIRONMENTATTRIBUTE">
           <Key>
@@ -238,10 +171,6 @@
           <Property Name="ATTRIBUTETYPE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ATTRIBUTEVALUE" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ATTRIBUTEDESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ENVIRONMENTs" Relationship="Self.FK_ENVIRONMENTZONE" FromRole="ENVIRONMENTATTRIBUTES" ToRole="ENVIRONMENT" />
-          <NavigationProperty Name="ENVIRONMENTs1" Relationship="Self.FK_ENVNAME_ATTRIBUTES" FromRole="ENVIRONMENTATTRIBUTES" ToRole="ENVIRONMENT" />
-          <NavigationProperty Name="ENVIRONMENTs2" Relationship="Self.FK_WORKINGSTATUS" FromRole="ENVIRONMENTATTRIBUTES" ToRole="ENVIRONMENT" />
-          <NavigationProperty Name="ENVIRONMENTCOMPONENTS" Relationship="Self.FK_ENVIRONMENTATTRIBUTE" FromRole="ENVIRONMENTATTRIBUTES" ToRole="ENVIRONMENTCOMPONENTS" />
         </EntityType>
         <EntityType Name="ENVIRONMENTCOMPONENT">
           <Key>
@@ -249,13 +178,12 @@
           </Key>
           <Property Name="ENVIRONMENTCOMPONENTID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ENVIRONMENTID" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="ENVIRONMENTATTRIBUTEID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ENVIRONMENTATTRIBUTEID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="COMPONENTNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="COMPONENTATTRIBUTES" Relationship="Self.FK_ENVIRONMENTCOMPONENT" FromRole="ENVIRONMENTCOMPONENTS" ToRole="COMPONENTATTRIBUTES" />
           <NavigationProperty Name="COMPONENTCONNECTIONS" Relationship="Self.FK_ENVIRONMENTCOMPONENTID1" FromRole="ENVIRONMENTCOMPONENTS" ToRole="COMPONENTCONNECTIONS" />
           <NavigationProperty Name="COMPONENTCONNECTIONS1" Relationship="Self.FK_ENVIRONMENTCOMPONENTID2" FromRole="ENVIRONMENTCOMPONENTS" ToRole="COMPONENTCONNECTIONS" />
           <NavigationProperty Name="ENVIRONMENT" Relationship="Self.FK_ENVIRONMENT" FromRole="ENVIRONMENTCOMPONENTS" ToRole="ENVIRONMENT" />
-          <NavigationProperty Name="ENVIRONMENTATTRIBUTE" Relationship="Self.FK_ENVIRONMENTATTRIBUTE" FromRole="ENVIRONMENTCOMPONENTS" ToRole="ENVIRONMENTATTRIBUTES" />
         </EntityType>
         <Association Name="FK_ENVIRONMENTCOMPONENT">
           <End Role="ENVIRONMENTCOMPONENTS" Type="Self.ENVIRONMENTCOMPONENT" Multiplicity="0..1" />
@@ -305,54 +233,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ENVIRONMENTZONE">
-          <End Role="ENVIRONMENTATTRIBUTES" Type="Self.ENVIRONMENTATTRIBUTE" Multiplicity="0..1" />
-          <End Role="ENVIRONMENT" Type="Self.ENVIRONMENT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ENVIRONMENTATTRIBUTES">
-              <PropertyRef Name="ATTRIBUTEID" />
-            </Principal>
-            <Dependent Role="ENVIRONMENT">
-              <PropertyRef Name="ENVIRONMENTZONE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ENVNAME_ATTRIBUTES">
-          <End Role="ENVIRONMENTATTRIBUTES" Type="Self.ENVIRONMENTATTRIBUTE" Multiplicity="1" />
-          <End Role="ENVIRONMENT" Type="Self.ENVIRONMENT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ENVIRONMENTATTRIBUTES">
-              <PropertyRef Name="ATTRIBUTEID" />
-            </Principal>
-            <Dependent Role="ENVIRONMENT">
-              <PropertyRef Name="ENVIRONMENTNAME" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WORKINGSTATUS">
-          <End Role="ENVIRONMENTATTRIBUTES" Type="Self.ENVIRONMENTATTRIBUTE" Multiplicity="0..1" />
-          <End Role="ENVIRONMENT" Type="Self.ENVIRONMENT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ENVIRONMENTATTRIBUTES">
-              <PropertyRef Name="ATTRIBUTEID" />
-            </Principal>
-            <Dependent Role="ENVIRONMENT">
-              <PropertyRef Name="WORKINGSTATUS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ENVIRONMENTATTRIBUTE">
-          <End Role="ENVIRONMENTATTRIBUTES" Type="Self.ENVIRONMENTATTRIBUTE" Multiplicity="0..1" />
-          <End Role="ENVIRONMENTCOMPONENTS" Type="Self.ENVIRONMENTCOMPONENT" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ENVIRONMENTATTRIBUTES">
-              <PropertyRef Name="ATTRIBUTEID" />
-            </Principal>
-            <Dependent Role="ENVIRONMENTCOMPONENTS">
-              <PropertyRef Name="ENVIRONMENTATTRIBUTEID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="EFDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="COMPONENTATTRIBUTES" EntityType="Self.COMPONENTATTRIBUTE" />
           <EntitySet Name="COMPONENTCONNECTIONS" EntityType="Self.COMPONENTCONNECTION" />
@@ -373,22 +253,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_ENVIRONMENT" Association="Self.FK_ENVIRONMENT">
             <End Role="ENVIRONMENT" EntitySet="ENVIRONMENTs" />
-            <End Role="ENVIRONMENTCOMPONENTS" EntitySet="ENVIRONMENTCOMPONENTS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ENVIRONMENTZONE" Association="Self.FK_ENVIRONMENTZONE">
-            <End Role="ENVIRONMENTATTRIBUTES" EntitySet="ENVIRONMENTATTRIBUTES" />
-            <End Role="ENVIRONMENT" EntitySet="ENVIRONMENTs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ENVNAME_ATTRIBUTES" Association="Self.FK_ENVNAME_ATTRIBUTES">
-            <End Role="ENVIRONMENTATTRIBUTES" EntitySet="ENVIRONMENTATTRIBUTES" />
-            <End Role="ENVIRONMENT" EntitySet="ENVIRONMENTs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WORKINGSTATUS" Association="Self.FK_WORKINGSTATUS">
-            <End Role="ENVIRONMENTATTRIBUTES" EntitySet="ENVIRONMENTATTRIBUTES" />
-            <End Role="ENVIRONMENT" EntitySet="ENVIRONMENTs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ENVIRONMENTATTRIBUTE" Association="Self.FK_ENVIRONMENTATTRIBUTE">
-            <End Role="ENVIRONMENTATTRIBUTES" EntitySet="ENVIRONMENTATTRIBUTES" />
             <End Role="ENVIRONMENTCOMPONENTS" EntitySet="ENVIRONMENTCOMPONENTS" />
           </AssociationSet>
         </EntityContainer>

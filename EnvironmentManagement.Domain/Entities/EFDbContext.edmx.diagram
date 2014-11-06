@@ -4,20 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8f6fa1bca10d42caa4f6a8d6454c576b" Name="Diagram1">
-        <EntityTypeShape EntityType="Entities.COMPONENTATTRIBUTE" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.COMPONENTCONNECTION" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.ENVIRONMENT" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.ENVIRONMENTATTRIBUTE" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Entities.ENVIRONMENTCOMPONENT" Width="1.5" PointX="5.25" PointY="2" IsExpanded="true" />
+      <Diagram DiagramId="cf33166109ab4c328f6415ea64c21591" Name="Diagram1">
+        <EntityTypeShape EntityType="Entities.COMPONENTATTRIBUTE" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.COMPONENTCONNECTION" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.ENVIRONMENT" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.ENVIRONMENTATTRIBUTE" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Entities.ENVIRONMENTCOMPONENT" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
         <AssociationConnector Association="Entities.FK_ENVIRONMENTCOMPONENT" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.FK_ENVIRONMENTCOMPONENTID1" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.FK_ENVIRONMENTCOMPONENTID2" ManuallyRouted="false" />
         <AssociationConnector Association="Entities.FK_ENVIRONMENT" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_ENVIRONMENTZONE" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_ENVNAME_ATTRIBUTES" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_WORKINGSTATUS" ManuallyRouted="false" />
-        <AssociationConnector Association="Entities.FK_ENVIRONMENTATTRIBUTE" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

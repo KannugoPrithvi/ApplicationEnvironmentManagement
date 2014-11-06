@@ -27,14 +27,7 @@ namespace EnvironmentManagement.UI.Controllers
         }
         [HttpGet]
         public ActionResult Edit(int environmentID = 0)
-        {
-            var componentItems = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "Component");
-            List<SelectListItem> componentSelectListItems = new List<SelectListItem>();
-            foreach (var item in componentItems)
-            {
-                componentSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEID.ToString() });
-            }
-            ViewBag.EnvironmentComponent = componentSelectListItems;
+        {            
             var environmentName = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "Environment");
             List<SelectListItem> environmentNameSelectListItems = new List<SelectListItem>();
             foreach (var item in environmentName)
@@ -58,6 +51,19 @@ namespace EnvironmentManagement.UI.Controllers
             ViewBag.WorkingStatus = workingStatusListItems;
             return View();
         }
+
+        public PartialViewResult NewComponentRow()
+        {
+            var componentItems = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "Component");
+            List<SelectListItem> componentSelectListItems = new List<SelectListItem>();
+            foreach (var item in componentItems)
+            {
+                componentSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEID.ToString() });
+            }
+            ViewBag.EnvironmentComponent = componentSelectListItems;
+            return PartialView("Partial/_EnvironmentComponentRowInsert");
+        }
+
         [HttpPost]
         public ActionResult Edit()
         {

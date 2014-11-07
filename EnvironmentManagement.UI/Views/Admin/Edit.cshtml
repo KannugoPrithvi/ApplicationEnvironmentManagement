@@ -5,56 +5,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>ENVIRONMENTATTRIBUTE</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ATTRIBUTEID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ATTRIBUTEID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ATTRIBUTEID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ATTRIBUTETYPE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ATTRIBUTETYPE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ATTRIBUTETYPE, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ATTRIBUTEVALUE, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ATTRIBUTEVALUE, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ATTRIBUTEVALUE, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ATTRIBUTEDESCRIPTION, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ATTRIBUTEDESCRIPTION, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ATTRIBUTEDESCRIPTION, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 style="color:#092bb2">Create/Edit Environment Attribute</h2>
     </div>
-}
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+            <div class="form-horizontal">
+                <h4 style="padding:10px 5px 10px 5px;color:#092bb2">Create/Edit @Model.ATTRIBUTETYPE EnvironmentAttribute</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ATTRIBUTETYPE, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @if(Model.ATTRIBUTETYPE != null)
+                        {
+                            @Html.TextBox("ATTRIBUTETYPE", Model.ATTRIBUTETYPE, new { @class = "form-control",disabled="disabled" })
+                        }
+                        else
+                        {
+                            @Html.TextBox("ATTRIBUTETYPE", Model.ATTRIBUTETYPE, new { @class = "form-control" })
+                        }                        
+                        @Html.ValidationMessageFor(model => model.ATTRIBUTETYPE, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ATTRIBUTEVALUE, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextBox("ATTRIBUTEVALUE",Model.ATTRIBUTEVALUE, new { @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.ATTRIBUTEVALUE, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ATTRIBUTEDESCRIPTION, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-9">
+                        @Html.TextArea("ATTRIBUTEDESCRIPTION",Model.ATTRIBUTEDESCRIPTION, new {@class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ATTRIBUTEDESCRIPTION, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-12 text-left">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="panel-footer">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 </div>
+
+
+
+
+
+

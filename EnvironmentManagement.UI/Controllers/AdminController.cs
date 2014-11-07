@@ -31,14 +31,34 @@ namespace EnvironmentManagement.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(string AttributeType = null)
+        public ActionResult Edit(int AttributeID = 0,string AttributeType = null)
         {
-            return null;
+            ENVIRONMENTATTRIBUTE enviornmentAttribute = repository.EnvironmentAttributes.FirstOrDefault(p => p.ATTRIBUTEID == AttributeID);
+            if (enviornmentAttribute != null)
+            {
+                return View(enviornmentAttribute);
+            }
+            else
+            {                
+                return View(new ENVIRONMENTATTRIBUTE { ATTRIBUTETYPE = AttributeType });
+            }
+        }
+        public ActionResult Create(string AttributeType = null)
+        {
+            return RedirectToAction("Edit");
         }
         [HttpPost]
         public ActionResult Edit(ENVIRONMENTATTRIBUTE environmentAttribute)
         {
-            return null;
+            if (environmentAttribute != null && ModelState.IsValid)
+            {
+                repository.SaveEnvironmentAttribute(environmentAttribute);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult Detail(string AttributeType = null)
         {
@@ -57,6 +77,20 @@ namespace EnvironmentManagement.UI.Controllers
             else
             {
                 return View(new List<ENVIRONMENTATTRIBUTE> { new ENVIRONMENTATTRIBUTE() });
+            }
+        }
+        public ActionResult Delete(int AttributeID = 0)
+        {
+            if(AttributeID != 0)
+            {
+                ENVIRONMENTATTRIBUTE environmentAttribute = repository.DeleteEnvironmentAttribute(AttributeID);
+                TempData["Message"] = "Environment Attribute Deleted Successfully";
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            else
+            {
+                TempData["Message"] = "Environment Attribute Could not be deleted successfully";
+                return RedirectToAction("Index");
             }
         }
     }

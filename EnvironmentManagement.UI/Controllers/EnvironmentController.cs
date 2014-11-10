@@ -98,17 +98,19 @@ namespace EnvironmentManagement.UI.Controllers
             {
                 repository.SaveEnvironment(environment);
                 TempData["Message"] = "Environment saved successfully";
-                return View("Index");
+                return RedirectToAction("Index");
             }
             else
             {
+                TempData["Message"] = "Environment could not be saved successfully";
                 return View();
             }
         }
 
-        public ActionResult Details()
+        public ActionResult Details(int EnvironmentID = 0)
         {
-            return null;
+            ViewBag.EnvironmentID = EnvironmentID;
+            return View();
         }
 
         public ActionResult Delete()

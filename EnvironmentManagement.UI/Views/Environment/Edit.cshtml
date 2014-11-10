@@ -8,8 +8,15 @@
         <h2 style="color:#092bb2">Create/Edit Environment</h2>
     </div>
     <div class="panel-body text-left">
-        @*@using (Html.BeginForm("Edit", "Environment", null, FormMethod.Post))
-            {*@
+        @if (TempData["Message"] != null)
+        {
+            <div class="bs-example">
+                <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Oh Snap!</strong> @TempData["Message"]
+                </div>
+            </div>
+        }
         <h4 style="padding:10px 5px 10px 5px;color:#092bb2">Enter General Information</h4>
         @using (Html.BeginForm("Edit", "Environment", null, FormMethod.Post, new { @class = "form-horizontal" }))
         {

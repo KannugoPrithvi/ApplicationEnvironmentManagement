@@ -150,6 +150,7 @@
     <Content Include="Views\Admin\Detail.cshtml" />
     <Content Include="Views\Environment\Index.cshtml" />
     <Content Include="Views\Environment\Partial\_EnvironmentZoneListView.cshtml" />
+    <Content Include="Views\Environment\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Entities.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Entities.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="COMPONENTATTRIBUTES">
           <Key>
             <PropertyRef Name="COMPONENTATTRIBUTEID" />
@@ -50,7 +50,7 @@
           </Key>
           <Property Name="ENVIRONMENTCOMPONENTID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ENVIRONMENTID" Type="number" Precision="38" Scale="0" />
-          <Property Name="ENVIRONMENTATTRIBUTEID" Type="varchar2" MaxLength="100" />
+          <Property Name="ENVIRONMENTATTRIBUTE" Type="varchar2" MaxLength="100" />
           <Property Name="COMPONENTNAME" Type="varchar2" MaxLength="200" />
         </EntityType>
         <Association Name="FK_ENVIRONMENT">
@@ -124,8 +124,7 @@
             <End Role="COMPONENTCONNECTIONS" EntitySet="COMPONENTCONNECTIONS" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -178,12 +177,12 @@
           </Key>
           <Property Name="ENVIRONMENTCOMPONENTID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ENVIRONMENTID" Type="Decimal" Precision="38" Scale="0" />
-          <Property Name="ENVIRONMENTATTRIBUTEID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="COMPONENTNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="COMPONENTATTRIBUTES" Relationship="Self.FK_ENVIRONMENTCOMPONENT" FromRole="ENVIRONMENTCOMPONENTS" ToRole="COMPONENTATTRIBUTES" />
           <NavigationProperty Name="COMPONENTCONNECTIONS" Relationship="Self.FK_ENVIRONMENTCOMPONENTID1" FromRole="ENVIRONMENTCOMPONENTS" ToRole="COMPONENTCONNECTIONS" />
           <NavigationProperty Name="COMPONENTCONNECTIONS1" Relationship="Self.FK_ENVIRONMENTCOMPONENTID2" FromRole="ENVIRONMENTCOMPONENTS" ToRole="COMPONENTCONNECTIONS" />
           <NavigationProperty Name="ENVIRONMENT" Relationship="Self.FK_ENVIRONMENT" FromRole="ENVIRONMENTCOMPONENTS" ToRole="ENVIRONMENT" />
+          <Property Name="ENVIRONMENTATTRIBUTE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_ENVIRONMENTCOMPONENT">
           <End Role="ENVIRONMENTCOMPONENTS" Type="Self.ENVIRONMENTCOMPONENT" Multiplicity="0..1" />
@@ -308,9 +307,9 @@
           <EntitySetMapping Name="ENVIRONMENTCOMPONENTS">
             <EntityTypeMapping TypeName="Entities.ENVIRONMENTCOMPONENT">
               <MappingFragment StoreEntitySet="ENVIRONMENTCOMPONENTS">
+                <ScalarProperty Name="ENVIRONMENTATTRIBUTE" ColumnName="ENVIRONMENTATTRIBUTE" />
                 <ScalarProperty Name="ENVIRONMENTCOMPONENTID" ColumnName="ENVIRONMENTCOMPONENTID" />
                 <ScalarProperty Name="ENVIRONMENTID" ColumnName="ENVIRONMENTID" />
-                <ScalarProperty Name="ENVIRONMENTATTRIBUTEID" ColumnName="ENVIRONMENTATTRIBUTEID" />
                 <ScalarProperty Name="COMPONENTNAME" ColumnName="COMPONENTNAME" />
               </MappingFragment>
             </EntityTypeMapping>

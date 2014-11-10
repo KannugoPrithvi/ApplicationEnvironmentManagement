@@ -23,8 +23,8 @@ namespace EnvironmentManagement.Domain.Entities
     
         public decimal ENVIRONMENTCOMPONENTID { get; set; }
         public Nullable<decimal> ENVIRONMENTID { get; set; }
-        public string ENVIRONMENTATTRIBUTEID { get; set; }
         public string COMPONENTNAME { get; set; }
+        public string ENVIRONMENTATTRIBUTE { get; set; }
     
         public virtual ICollection<COMPONENTATTRIBUTE> COMPONENTATTRIBUTES { get; set; }
         public virtual ICollection<COMPONENTCONNECTION> COMPONENTCONNECTIONS { get; set; }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model EnvironmentManagement.Domain.Entities.ENVIRONMENT
+@{
     ViewBag.Title = "Create/Edit Environment";
 }
 
@@ -7,68 +8,70 @@
         <h2 style="color:#092bb2">Create/Edit Environment</h2>
     </div>
     <div class="panel-body text-left">
+        @using (Html.BeginForm("Edit", "Environment", null, FormMethod.Post))
+        {
+            <h4 style="padding:10px 5px 10px 5px;color:#092bb2">Enter General Information</h4>
+            <form class="form-horizontal" method="post" action="/Create/Index">
+                <div class="form-group">
+                    <label class="control-label col-xs-2">Username</label>
+                    <div class="col-xs-10">
+                        @Html.TextBox("USERNAME", Model.USERNAME, new { @class = "form-control", placeholder = "Username" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-2">Environment Name</label>
+                    <div class="col-xs-10">
+                        @Html.DropDownList("ENVIRONMENTNAME", ViewBag.EnvironmentName as List<SelectListItem>, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-2 text-left">Intended Users</label>
+                    <div class="col-xs-10">
+                        @Html.TextBox("INTENDEDUSERS", Model.INTENDEDUSERS, new { @class = "form-control", placeholder = "Intended Users" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-2">Zone</label>
+                    <div class="col-xs-10">
+                        @Html.DropDownList("ENVIRONMENTZONE", ViewBag.EnvironmentZone as List<SelectListItem>, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-2">Working Status</label>
+                    <div class="col-xs-10">
+                        @Html.DropDownList("WORKINGSTATUS", ViewBag.WorkingStatus as List<SelectListItem>, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-2">Description</label>
+                    <div class="col-xs-10">
+                        @Html.TextArea("DESCRIPTION", new { @class = "form-control", placeholder = "Description", rows = "5" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-2 text-left">Justification</label>
+                    <div class="col-xs-10">
+                        @Html.TextArea("JUSTIFICATION", new { @class = "form-control", placeholder = "Justification", rows = "5" })
+                    </div>
+                </div>
+                <hr />
+                <h4 style="padding:10px 5px 10px 5px;color:#092bb2">Add components to the environment</h4>
 
-        <h4 style="padding:10px 5px 10px 5px;color:#092bb2">Enter General Information</h4>
-        <form class="form-horizontal" method="post" action="/Create/Index">
-            <div class="form-group">
-                <label class="control-label col-xs-2">Username</label>
-                <div class="col-xs-10">
-                    <input type="text" class="form-control" placeholder="Username" />
+                <table id="envComponentTable" class="col-xs-8">
+                    <tr>
+                        <th style="padding:5px">Component Type</th>
+                        <th style="padding:5px">Component Name</th>
+                    </tr>
+                    @Html.Action("NewComponentRow")
+                </table>
+                <div class="col-xs-12" style="margin-top:15px">
+                    <input type="button" id="btnAddComponent" value="Add Component" class="btn-success btn-sm" />
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-2">Environment Name</label>
-                <div class="col-xs-10">
-                    @Html.DropDownList("EnvironmentName", ViewBag.EnvironmentName as List<SelectListItem>, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-2 text-left">Intended Users</label>
-                <div class="col-xs-10">
-                    <input type="text" class="form-control" placeholder="Intended Users" />
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-2">Zone</label>
-                <div class="col-xs-10">
-                    @Html.DropDownList("Zone", ViewBag.EnvironmentZone as List<SelectListItem>, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-2">Working Status</label>
-                <div class="col-xs-10">
-                    @Html.DropDownList("WorkingStatus", ViewBag.WorkingStatus as List<SelectListItem>, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-2">Description</label>
-                <div class="col-xs-10">
-                    @Html.TextArea("Description", new { @class = "form-control", placeholder = "Description", rows = "5" })
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-xs-2 text-left">Justification</label>
-                <div class="col-xs-10">
-                    @Html.TextArea("Justification", new { @class = "form-control", placeholder = "Justification", rows = "5" })
-                </div>
-            </div>
-            <hr />
-            <h4 style="padding:10px 5px 10px 5px;color:#092bb2">Add components to the environment</h4>
-
-            <table id="envComponentTable" class="col-xs-8">
-                <tr>
-                    <th style="padding:5px">Component Type</th>
-                    <th style="padding:5px">Component Name</th>
-                </tr>
-                @Html.Action("NewComponentRow")
-            </table>
+            </form>
             <div class="col-xs-12" style="margin-top:15px">
-                <input type="button" id="btnAddComponent" value="Add Component" class="btn-success btn-sm" />
+                <button type="submit" class="btn-primary btn-lg btn-sharp">Submit !</button>
             </div>
-        </form>
-        <div class="col-xs-12" style="margin-top:15px">
-            <button type="submit" class="btn-primary btn-lg btn-sharp">Submit !</button>
-        </div>
+        }
     </div>
 </div>
 
@@ -81,9 +84,9 @@
         $("#btnAddComponent").click(function (e) {
             var itemIndex = $("#envComponentTable tr").length;
             e.preventDefault();
-            $.get("@Url.Action("NewComponentRow")",function(data){
+            $.get("@Url.Action("NewComponentRow")/?Index=" + itemIndex, function (data) {
                 $("#envComponentTable").append(data);
-            });            
+            });
         });
     });
 </script>

@@ -53,7 +53,7 @@ namespace EnvironmentManagement.UI.Controllers
             if (environmentAttribute != null && ModelState.IsValid)
             {
                 repository.SaveEnvironmentAttribute(environmentAttribute);
-                return RedirectToAction("Index");
+                return RedirectToAction("Detail", new { AttributeType = environmentAttribute.ATTRIBUTETYPE });
             }
             else
             {

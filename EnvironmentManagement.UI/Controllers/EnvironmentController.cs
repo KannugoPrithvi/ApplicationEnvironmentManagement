@@ -1,5 +1,6 @@
 ﻿using EnvironmentManagement.Domain.Abstract;
 using EnvironmentManagement.Domain.Concrete;
+using EnvironmentManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +27,8 @@ namespace EnvironmentManagement.UI.Controllers
             return RedirectToAction("Edit");
         }
         [HttpGet]
-        public ActionResult Edit(int environmentID = 0)
-        {            
+        public ActionResult Edit(int EnvironmentID = 0)
+        {
             var environmentName = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "Environment");
             List<SelectListItem> environmentNameSelectListItems = new List<SelectListItem>();
             foreach (var item in environmentName)
@@ -49,10 +50,25 @@ namespace EnvironmentManagement.UI.Controllers
                 workingStatusListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEID.ToString() });
             }
             ViewBag.WorkingStatus = workingStatusListItems;
-            return View();
+            if (EnvironmentID != 0)
+            {
+                ENVIRONMENT environment = repository.Environments.FirstOrDefault(p => p.ENVIRONMENTID == EnvironmentID);
+                if (environment != null)
+                {
+                    return View(environment);
+                }
+                else
+                {
+                    return View(new ENVIRONMENT());
+                }
+            }
+            else
+            {
+                return View(new ENVIRONMENT());
+            }
         }
 
-        public PartialViewResult NewComponentRow()
+        public PartialViewResult NewComponentRow(int Index = 0)
         {
             var componentItems = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "Component");
             List<SelectListItem> componentSelectListItems = new List<SelectListItem>();
@@ -61,13 +77,23 @@ namespace EnvironmentManagement.UI.Controllers
                 componentSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEID.ToString() });
             }
             ViewBag.EnvironmentComponent = componentSelectListItems;
-            return PartialView("Partial/_EnvironmentComponentRowInsert");
+            //ViewBag.Index = Index;
+            return PartialView("Partial/_EnvironmentComponentRowInsert", Index);
         }
 
         [HttpPost]
-        public ActionResult Edit()
+        public ActionResult Edit(ENVIRONMENT environment)
         {
-            return null;
+            if(environment != null && ModelState.IsValid)
+            {
+                repository.SaveEnvironment(environment);
+                TempData["Message"] = "Environment saved successfully";
+                return View("Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult Details()

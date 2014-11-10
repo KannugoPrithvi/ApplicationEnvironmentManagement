@@ -179,7 +179,7 @@ namespace EnvironmentManagement.Domain.Concrete
                 if(dbEntry != null)
                 {
                     dbEntry.ENVIRONMENTID = environmentComponent.ENVIRONMENTID;
-                    dbEntry.ENVIRONMENTATTRIBUTEID = environmentComponent.ENVIRONMENTATTRIBUTEID;
+                    dbEntry.ENVIRONMENTATTRIBUTE = environmentComponent.ENVIRONMENTATTRIBUTE;
                     dbEntry.COMPONENTNAME = environmentComponent.COMPONENTNAME;
                 }
             }

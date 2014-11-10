@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Entities.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Entities.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="COMPONENTATTRIBUTES">
           <Key>
             <PropertyRef Name="COMPONENTATTRIBUTEID" />
           </Key>
-          <Property Name="COMPONENTATTRIBUTEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="COMPONENTATTRIBUTEID" Type="number" StoreGeneratedPattern="Identity" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ENVIRONMENTCOMPONENTID" Type="number" Precision="38" Scale="0" />
           <Property Name="ATTRIBUTEKEY" Type="varchar2" MaxLength="200" />
           <Property Name="ATTRIBUTEVALUE" Type="varchar2" MaxLength="400" />
@@ -18,7 +18,7 @@
           <Key>
             <PropertyRef Name="COMPONENTCONNECTIONID" />
           </Key>
-          <Property Name="COMPONENTCONNECTIONID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="COMPONENTCONNECTIONID" StoreGeneratedPattern="Identity" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ENVIRONMENTCOMPONENTID1" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ENVIRONMENTCOMPONENTID2" Type="number" Precision="38" Scale="0" Nullable="false" />
         </EntityType>
@@ -26,7 +26,7 @@
           <Key>
             <PropertyRef Name="ENVIRONMENTID" />
           </Key>
-          <Property Name="ENVIRONMENTID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ENVIRONMENTID" StoreGeneratedPattern="Identity" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="USERNAME" Type="varchar2" MaxLength="100" Nullable="false" />
           <Property Name="ENVIRONMENTNAME" Type="varchar2" MaxLength="100" Nullable="false" />
           <Property Name="DESCRIPTION" Type="varchar2" MaxLength="500" Nullable="false" />
@@ -39,7 +39,7 @@
           <Key>
             <PropertyRef Name="ATTRIBUTEID" />
           </Key>
-          <Property Name="ATTRIBUTEID" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ATTRIBUTEID" StoreGeneratedPattern="Identity" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ATTRIBUTETYPE" Type="varchar2" MaxLength="100" Nullable="false" />
           <Property Name="ATTRIBUTEVALUE" Type="varchar2" MaxLength="200" Nullable="false" />
           <Property Name="ATTRIBUTEDESCRIPTION" Type="varchar2" MaxLength="500" />
@@ -48,13 +48,13 @@
           <Key>
             <PropertyRef Name="ENVIRONMENTCOMPONENTID" />
           </Key>
-          <Property Name="ENVIRONMENTCOMPONENTID" Type="number" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ENVIRONMENTID" Type="number" Precision="38" Scale="0" />
+          <Property Name="ENVIRONMENTCOMPONENTID" StoreGeneratedPattern="Identity" Type="number" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ENVIRONMENTID" Type="number" Precision="38" Scale="0" Nullable="false" />
           <Property Name="ENVIRONMENTATTRIBUTE" Type="varchar2" MaxLength="100" />
           <Property Name="COMPONENTNAME" Type="varchar2" MaxLength="200" />
         </EntityType>
         <Association Name="FK_ENVIRONMENT">
-          <End Role="ENVIRONMENT" Type="Self.ENVIRONMENT" Multiplicity="0..1" />
+          <End Role="ENVIRONMENT" Type="Self.ENVIRONMENT" Multiplicity="1" />
           <End Role="ENVIRONMENTCOMPONENTS" Type="Self.ENVIRONMENTCOMPONENTS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ENVIRONMENT">
@@ -124,7 +124,8 @@
             <End Role="COMPONENTCONNECTIONS" EntitySet="COMPONENTCONNECTIONS" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -176,13 +177,13 @@
             <PropertyRef Name="ENVIRONMENTCOMPONENTID" />
           </Key>
           <Property Name="ENVIRONMENTCOMPONENTID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
-          <Property Name="ENVIRONMENTID" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="ENVIRONMENTID" Type="Decimal" Precision="38" Scale="0" Nullable="false" />
+          <Property Name="ENVIRONMENTATTRIBUTE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="COMPONENTNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="COMPONENTATTRIBUTES" Relationship="Self.FK_ENVIRONMENTCOMPONENT" FromRole="ENVIRONMENTCOMPONENTS" ToRole="COMPONENTATTRIBUTES" />
           <NavigationProperty Name="COMPONENTCONNECTIONS" Relationship="Self.FK_ENVIRONMENTCOMPONENTID1" FromRole="ENVIRONMENTCOMPONENTS" ToRole="COMPONENTCONNECTIONS" />
           <NavigationProperty Name="COMPONENTCONNECTIONS1" Relationship="Self.FK_ENVIRONMENTCOMPONENTID2" FromRole="ENVIRONMENTCOMPONENTS" ToRole="COMPONENTCONNECTIONS" />
           <NavigationProperty Name="ENVIRONMENT" Relationship="Self.FK_ENVIRONMENT" FromRole="ENVIRONMENTCOMPONENTS" ToRole="ENVIRONMENT" />
-          <Property Name="ENVIRONMENTATTRIBUTE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_ENVIRONMENTCOMPONENT">
           <End Role="ENVIRONMENTCOMPONENTS" Type="Self.ENVIRONMENTCOMPONENT" Multiplicity="0..1" />
@@ -221,7 +222,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ENVIRONMENT">
-          <End Role="ENVIRONMENT" Type="Self.ENVIRONMENT" Multiplicity="0..1" />
+          <End Role="ENVIRONMENT" Type="Self.ENVIRONMENT" Multiplicity="1" />
           <End Role="ENVIRONMENTCOMPONENTS" Type="Self.ENVIRONMENTCOMPONENT" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ENVIRONMENT">
@@ -307,9 +308,9 @@
           <EntitySetMapping Name="ENVIRONMENTCOMPONENTS">
             <EntityTypeMapping TypeName="Entities.ENVIRONMENTCOMPONENT">
               <MappingFragment StoreEntitySet="ENVIRONMENTCOMPONENTS">
-                <ScalarProperty Name="ENVIRONMENTATTRIBUTE" ColumnName="ENVIRONMENTATTRIBUTE" />
                 <ScalarProperty Name="ENVIRONMENTCOMPONENTID" ColumnName="ENVIRONMENTCOMPONENTID" />
                 <ScalarProperty Name="ENVIRONMENTID" ColumnName="ENVIRONMENTID" />
+                <ScalarProperty Name="ENVIRONMENTATTRIBUTE" ColumnName="ENVIRONMENTATTRIBUTE" />
                 <ScalarProperty Name="COMPONENTNAME" ColumnName="COMPONENTNAME" />
               </MappingFragment>
             </EntityTypeMapping>

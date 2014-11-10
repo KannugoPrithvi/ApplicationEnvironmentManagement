@@ -1,6 +1,7 @@
 ﻿using EnvironmentManagement.Domain.Abstract;
 using EnvironmentManagement.Domain.Concrete;
 using EnvironmentManagement.Domain.Entities;
+using EnvironmentManagement.UI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,16 @@ namespace EnvironmentManagement.UI.Controllers
         // GET: Environment
         public ActionResult Index()
         {
-            return View();
+            List<EnvironmentListViewModel> listOfEnvironments = (from result in repository.Environments
+                                                                 select new EnvironmentListViewModel
+                                                                 {
+                                                                     ENVIRONMENTID = result.ENVIRONMENTID,
+                                                                     ENVIRONMENTNAME = result.ENVIRONMENTNAME,
+                                                                     ENVIRONMENTZONE = result.ENVIRONMENTZONE,
+                                                                     INTENDEDUSERS = result.INTENDEDUSERS,
+                                                                     WORKINGSTATUS = result.WORKINGSTATUS
+                                                                 }).ToList<EnvironmentListViewModel>();
+            return View(listOfEnvironments);
         }
         public ActionResult Create()
         {
@@ -33,7 +43,7 @@ namespace EnvironmentManagement.UI.Controllers
             List<SelectListItem> environmentNameSelectListItems = new List<SelectListItem>();
             foreach (var item in environmentName)
             {
-                environmentNameSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEID.ToString() });
+                environmentNameSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
             }
             ViewBag.EnvironmentName = environmentNameSelectListItems;
             var environmentZone = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "ZONE");
@@ -47,7 +57,7 @@ namespace EnvironmentManagement.UI.Controllers
             List<SelectListItem> workingStatusListItems = new List<SelectListItem>();
             foreach (var item in workingStatus)
             {
-                workingStatusListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEID.ToString() });
+                workingStatusListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
             }
             ViewBag.WorkingStatus = workingStatusListItems;
             if (EnvironmentID != 0)
@@ -74,7 +84,7 @@ namespace EnvironmentManagement.UI.Controllers
             List<SelectListItem> componentSelectListItems = new List<SelectListItem>();
             foreach (var item in componentItems)
             {
-                componentSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEID.ToString() });
+                componentSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
             }
             ViewBag.EnvironmentComponent = componentSelectListItems;
             //ViewBag.Index = Index;
@@ -84,7 +94,7 @@ namespace EnvironmentManagement.UI.Controllers
         [HttpPost]
         public ActionResult Edit(ENVIRONMENT environment)
         {
-            if(environment != null && ModelState.IsValid)
+            if (environment != null && ModelState.IsValid)
             {
                 repository.SaveEnvironment(environment);
                 TempData["Message"] = "Environment saved successfully";

@@ -6,8 +6,9 @@
     <div class="panel-body">
         <div class="row text-justify">
             <ul>
+                <li>@Html.ActionLink("List all Environments", "Index", new { controller = "Environment" }, new { style = "font-size:1.35em;padding-left:15px" })</li>
                 <li>@Html.ActionLink("Create Environment", "Edit", new { controller = "Environment" }, new { style = "font-size:1.35em;padding-left:15px" })</li>
-                <li>@Html.ActionLink("Edit Environment Components", "Edit", new { controller = "Component" }, new { style = "font-size:1.35em;padding-left:15px" })</li>
+                <li>@Html.ActionLink("Add/Delete/Edit Environment Components", "Edit", new { controller = "Component" }, new { style = "font-size:1.35em;padding-left:15px" })</li>
                 <li>@Html.ActionLink("Edit Component Attributes (Requires Authentication)", "Edit", new { controller = "Environment" }, new { style = "font-size:1.35em;padding-left:15px" })</li>
                 <li>@Html.ActionLink("Edit Environment Attributes (Requires Authentication)", "Edit", new { controller = "Environment" }, new { style = "font-size:1.35em;padding-left:15px" })</li>
             </ul>

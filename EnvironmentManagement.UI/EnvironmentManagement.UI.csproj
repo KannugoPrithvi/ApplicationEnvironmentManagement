@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\EnvironmentListViewModel.cs" />
+    <Compile Include="Models\ExistingRowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,7 @@
     <Content Include="Views\Environment\Index.cshtml" />
     <Content Include="Views\Environment\Partial\_EnvironmentZoneListView.cshtml" />
     <Content Include="Views\Environment\Details.cshtml" />
+    <Content Include="Views\Environment\Partial\_EnvironmentExistingRowComponentAttributes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

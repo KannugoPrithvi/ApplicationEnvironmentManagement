@@ -1,0 +1,9 @@
+﻿@model EnvironmentManagement.UI.Models.ExistingRowViewModel
+
+<tr>
+    <td style="padding:5px">@Html.DropDownList("ENVIRONMENTCOMPONENTS[" + Model.RowIndex + "].ENVIRONMENTATTRIBUTE", Model.EnvironmentAttributeList, new { @class = "form-control" })</td>
+    <td style="padding:5px">@Html.TextBox("ENVIRONMENTCOMPONENTS[" + Model.RowIndex + "].COMPONENTNAME", Model.EnvironmentAttributeValue, new { @class = "form-control", placeholder = "Component Name" })</td>
+    <td style="padding:5px">@Html.ActionLink("Edit", "Edit", new { controller = "Component", ENVIRONMENTCOMPONENTID = Model.EnvironmentComponentID }) | @Html.ActionLink("Delete", "Delete", new { controller = "Component", ENVIRONMENTCOMPONENTID = Model.EnvironmentComponentID })</td>
+</tr>
+
+

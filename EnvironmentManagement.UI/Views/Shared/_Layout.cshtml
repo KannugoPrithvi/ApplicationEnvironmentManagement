@@ -16,13 +16,14 @@
                 @Html.ActionLink("UMT Environment Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand",style="color:white;font-size:1.5em" })
              <ul class="nav navbar-nav navbar-right">
                  <li><a href="#" style="color:white;font-size:1em"><span class="glyphicon glyphicon-exclamation-sign" style="padding-right:5px"></span>Click here for Help</a></li>                 
-             </ul>          
-            <form role="search" class="navbar-form navbar-right">
+             </ul>     
+             @using (Html.BeginForm("Index", "Environment", FormMethod.Post, new { role="search",@class="navbar-form navbar-right"}))
+             {
                 <div class="form-group">
-                    <input type="text" placeholder="Search" class="form-control" />
+                    <input type="text" name="UserName" placeholder="User Search" class="form-control" />
                     <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
                 </div>
-            </form>            
+             }             
         </div>
     </div>
 

@@ -19,17 +19,34 @@ namespace EnvironmentManagement.UI.Controllers
             repository = repo;
         }
         // GET: Environment
-        public ActionResult Index()
+        public ActionResult Index(string UserName = null)
         {
-            List<EnvironmentListViewModel> listOfEnvironments = (from result in repository.Environments
-                                                                 select new EnvironmentListViewModel
-                                                                 {
-                                                                     ENVIRONMENTID = result.ENVIRONMENTID,
-                                                                     ENVIRONMENTNAME = result.ENVIRONMENTNAME,
-                                                                     ENVIRONMENTZONE = result.ENVIRONMENTZONE,
-                                                                     INTENDEDUSERS = result.INTENDEDUSERS,
-                                                                     WORKINGSTATUS = result.WORKINGSTATUS
-                                                                 }).ToList<EnvironmentListViewModel>();
+            List<EnvironmentListViewModel> listOfEnvironments = null;
+            if(UserName == null)
+            {
+                listOfEnvironments = (from result in repository.Environments
+                                                                     select new EnvironmentListViewModel
+                                                                     {
+                                                                         ENVIRONMENTID = result.ENVIRONMENTID,
+                                                                         ENVIRONMENTNAME = result.ENVIRONMENTNAME,
+                                                                         ENVIRONMENTZONE = result.ENVIRONMENTZONE,
+                                                                         INTENDEDUSERS = result.INTENDEDUSERS,
+                                                                         WORKINGSTATUS = result.WORKINGSTATUS
+                                                                     }).ToList<EnvironmentListViewModel>();
+            }
+            else
+            {
+                listOfEnvironments = (from result in repository.Environments.Where(c => c.USERNAME.Contains(UserName))
+                                      select new EnvironmentListViewModel
+                                      {
+                                          ENVIRONMENTID = result.ENVIRONMENTID,
+                                          ENVIRONMENTNAME = result.ENVIRONMENTNAME,
+                                          ENVIRONMENTZONE = result.ENVIRONMENTZONE,
+                                          INTENDEDUSERS = result.INTENDEDUSERS,
+                                          WORKINGSTATUS = result.WORKINGSTATUS
+                                      }).ToList<EnvironmentListViewModel>();
+            }
+            
             return View(listOfEnvironments);
         }
         public ActionResult Create()
@@ -41,40 +58,72 @@ namespace EnvironmentManagement.UI.Controllers
         {
             var environmentName = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "Environment");
             List<SelectListItem> environmentNameSelectListItems = new List<SelectListItem>();
-            foreach (var item in environmentName)
-            {
-                environmentNameSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
-            }
-            ViewBag.EnvironmentName = environmentNameSelectListItems;
+
             var environmentZone = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "ZONE");
             List<SelectListItem> environmentZoneSelectListItems = new List<SelectListItem>();
-            foreach (var item in environmentZone)
-            {
-                environmentZoneSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
-            }
-            ViewBag.EnvironmentZone = environmentZoneSelectListItems;
+
             var workingStatus = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "WorkingStatus");
             List<SelectListItem> workingStatusListItems = new List<SelectListItem>();
-            foreach (var item in workingStatus)
+            if (EnvironmentID == 0)
             {
-                workingStatusListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
-            }
-            ViewBag.WorkingStatus = workingStatusListItems;
-            if (EnvironmentID != 0)
-            {
-                ENVIRONMENT environment = repository.Environments.FirstOrDefault(p => p.ENVIRONMENTID == EnvironmentID);
-                if (environment != null)
+                foreach (var item in environmentName)
                 {
-                    return View(environment);
+                    environmentNameSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
                 }
-                else
+                foreach (var item in environmentZone)
                 {
-                    return View(new ENVIRONMENT());
+                    environmentZoneSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
                 }
+                foreach (var item in workingStatus)
+                {
+                    workingStatusListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
+                }
+                ViewBag.EnvironmentNameItems = environmentNameSelectListItems;
+                ViewBag.EnvironmentZoneItems = environmentZoneSelectListItems;
+                ViewBag.WorkingStatusItems = workingStatusListItems;
+                return View(new ENVIRONMENT());
             }
             else
             {
-                return View(new ENVIRONMENT());
+                ENVIRONMENT environment = repository.Environments.FirstOrDefault(p => p.ENVIRONMENTID == EnvironmentID);
+                foreach (var item in environmentName)
+                {
+                    if (environment.ENVIRONMENTNAME == item.ATTRIBUTEVALUE)
+                    {
+                        environmentNameSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString(), Selected = true });
+                    }
+                    else
+                    {
+                        environmentNameSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
+                    }
+
+                }
+                foreach (var item in environmentZone)
+                {
+                    if (environment.ENVIRONMENTZONE == item.ATTRIBUTEVALUE)
+                    {
+                        environmentZoneSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString(), Selected = true });
+                    }
+                    else
+                    {
+                        environmentZoneSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
+                    }
+                }
+                foreach (var item in workingStatus)
+                {
+                    if (environment.WORKINGSTATUS == item.ATTRIBUTEVALUE)
+                    {
+                        workingStatusListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString(), Selected = true });
+                    }
+                    else
+                    {
+                        workingStatusListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString() });
+                    }
+                }
+                ViewBag.EnvironmentNameItems = environmentNameSelectListItems;
+                ViewBag.EnvironmentZoneItems = environmentZoneSelectListItems;
+                ViewBag.WorkingStatusItems = workingStatusListItems;
+                return View(environment);
             }
         }
 
@@ -90,23 +139,45 @@ namespace EnvironmentManagement.UI.Controllers
             //ViewBag.Index = Index;
             return PartialView("Partial/_EnvironmentComponentRowInsert", Index);
         }
-
+        public PartialViewResult ExistingComponentRow(ENVIRONMENTCOMPONENT EnvironmentComponent,int index = 0)
+        {
+            var componentItems = repository.EnvironmentAttributes.Where(p => p.ATTRIBUTETYPE == "Component");
+            List<SelectListItem> componentSelectListItems = new List<SelectListItem>();
+            foreach (var item in componentItems)
+            {
+                if(item.ATTRIBUTEVALUE.Equals(EnvironmentComponent.ENVIRONMENTATTRIBUTE))
+                {
+                    componentSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString(),Selected=true });
+                }
+                else
+                {
+                    componentSelectListItems.Add(new SelectListItem { Text = item.ATTRIBUTEVALUE, Value = item.ATTRIBUTEVALUE.ToString(),Selected=false });
+                }
+            }
+            ExistingRowViewModel existingRowViewModel = new ExistingRowViewModel
+            {
+                EnvironmentAttributeList=componentSelectListItems,
+                EnvironmentAttributeValue=EnvironmentComponent.COMPONENTNAME,
+                RowIndex=index,
+                EnvironmentComponentID=EnvironmentComponent.ENVIRONMENTCOMPONENTID
+            };
+            return PartialView("Partial/_EnvironmentExistingRowComponentAttributes",existingRowViewModel);
+        }
         [HttpPost]
         public ActionResult Edit(ENVIRONMENT environment)
         {
             if (environment != null && ModelState.IsValid)
             {
                 repository.SaveEnvironment(environment);
-                TempData["Message"] = "Environment saved successfully";
+                TempData["Message"] = "Environment \"" + environment.ENVIRONMENTNAME + "\" saved successfully";
                 return RedirectToAction("Index");
             }
             else
             {
-                TempData["Message"] = "Environment could not be saved successfully";
+                TempData["Message"] = "Environment \"" + environment.ENVIRONMENTNAME + "\" could not be saved successfully";
                 return View();
             }
-        }
-
+        }        
         public ActionResult Details(int EnvironmentID = 0)
         {
             ViewBag.EnvironmentID = EnvironmentID;
